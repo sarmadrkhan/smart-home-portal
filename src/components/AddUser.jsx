@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import { Button, Form, Container, Row, Col } from 'react-bootstrap';
-import firebaseInstance from '../services/firebase';
+import { useNavigate } from "react-router-dom";
+import { useFirebase } from '../providers/FirebaseContext';
 import User from '../models/User';
 
 
 function AddUser() {
+  const navigate = useNavigate();
+  const firebase = useFirebase();
+
   // State for user fields
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
@@ -16,9 +20,9 @@ function AddUser() {
     const userData = { ...newUser };
 
     try {
-      const userId = await firebaseInstance.addUser(userData);
+      const userId = await firebase.addUser(userData);
       console.log(`User added with ID: ${userId}`);
-
+      navigate("/users");
     } catch (error) {
       console.error('Error adding user:', error);
     }
@@ -30,27 +34,29 @@ function AddUser() {
         <Col xs={12} md={6}>
           <h2>Add User</h2>
           <Form>
-            <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Group className="mb-3" controlId="formName">
               <Form.Label>Name</Form.Label>
-              <Form.Control type="text" placeholder="Enter name" value={name} onChange={(e) => setName(e.target.value)} />
+              <Form.Control required type="text" placeholder="Enter name" value={name} onChange={(e) => setName(e.target.value)} />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicSurname">
+            <Form.Group className="mb-3" controlId="formSurname">
               <Form.Label>Surname</Form.Label>
-              <Form.Control type="text" placeholder="Enter surname" value={surname} onChange={(e) => setSurname(e.target.value)} />
+              <Form.Control required type="text" placeholder="Enter surname" value={surname} onChange={(e) => setSurname(e.target.value)} />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="formEmail">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} />
+              <Form.Control required type="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
+            <Form.Group className="mb-3" controlId="formPhoneNumber">
               <Form.Label>Phone Number</Form.Label>
-              <Form.Control type="tel" placeholder="Enter phone number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+              <Form.Control required type="text" placeholder="Enter phone number" value={phoneNumber} onChange={(e) => setPhoneNumber(parseInt(e.target.value))} />
             </Form.Group>
 
             <Button variant="primary" onClick={handleAddUser}>Add User</Button>
+            &nbsp;
+            <Button variant='danger' onClick={() => navigate("/users")}>Cancel</Button>
           </Form>
         </Col>
       </Row>

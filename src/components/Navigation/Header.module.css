@@ -24,7 +24,7 @@
 
 .navlinks a:hover {
   animation: bump 300ms ease-out;
-  background-color: maroon;
+  background-color: rgb(43, 163, 97);
   border-radius: 1rem;
   color: white;
 }
@@ -33,12 +33,15 @@
   margin-right: 2rem;
   background-color: gray;
   border-radius: 1rem;
+  border-color: gray;
   outline: none;
 }
 
 .navbar button:hover {
-  background-color: maroon;
+  background-color: teal;
   animation: bump 400ms ease-out;
+  border-color: teal;
+  cursor: pointer;
 }
 
 @keyframes bump {
