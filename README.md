@@ -44,6 +44,15 @@ Global state management is facilitated through context providers located in the 
 
 Styling is done using a combination of boostrap and raw css. I am using the `.module.css` approach for clean code an ease of maintainance
 
+## Things to notice
+
+* conditional rendering
+* animations using key frame
+* state management
+* context api
+* routing
+* alert
+
 ## Class Diagram
 ![Class Diagram](/src/assets/class_diagrams/img.png "Class Diagram")
 
