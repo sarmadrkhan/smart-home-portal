@@ -51,7 +51,11 @@ Styling is done using a combination of boostrap and raw css. I am using the `.mo
 * state management
 * context api
 * routing
-* alert
+* modal alert
+* from the home page you can fill a multi-step form to create user, home, room and object (for now only single items)
+* each of the item in top navigation bar allows you to see the actual data from firestore database for users, homes, rooms and object
+* every item can be deleted individually showing granular functions, on requirement all items can be deleted together
+* correctly referenced links between user and home, home and room, room and object can be seen in the tables.
 
 ## Class Diagram
 ![Class Diagram](/src/assets/class_diagrams/img.png "Class Diagram")
