@@ -2,8 +2,8 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { Root, Home, NotFound } from "./pages";
 import UnderConstruction from "./components/UnderConstruction";
-import UserTable from "./components/UserTable";
-import AddUser from "./components/AddUser";
+import { UserTable, AddUser } from "./components/User";
+
 function App() {
   return (
     <BrowserRouter>

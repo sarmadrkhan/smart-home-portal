@@ -1,6 +1,39 @@
-.title {
+@keyframes flyIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.container {
   display: flex;
   justify-content: center;
+  align-items: center;
   height: 100vh;
-  align-items: center
+  background-color: aliceblue;
+}
+
+.card {
+  padding: 2rem;
+  background-color: #ffffff;
+  /* White background for the card */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Card shadow for elevation */
+  border-radius: 10px;
+  /* Rounded corners for the card */
+  animation: flyIn 0.8s ease-out;
+  /* Animation for the card to fly in */
+}
+
+.title {
+  margin: 0;
+  color: #4e8a3c;
+  /* Darker text color for contrast */
+  font-size: 2rem;
+  /* Larger font size */
 }

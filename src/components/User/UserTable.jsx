@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useFirebase } from "../providers/FirebaseContext"
+import { useFirebase } from "../../providers/FirebaseContext"
 import { Table, Button, Alert } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import styles from "./UserTable.module.css"
@@ -31,6 +31,7 @@ const UserTable = () => {
 
   return (
     <>
+
       {feedback.show && (
         <Alert dismissible variant="success" className="animate">
           {feedback.message}

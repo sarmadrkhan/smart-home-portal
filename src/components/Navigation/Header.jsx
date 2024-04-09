@@ -18,13 +18,13 @@ const Header = () => {
   }
   return (
     <>
-      <Navbar className={styles.navbar}>
+      <Navbar className={styles.navbar} expand="md">
         <Navbar.Brand onClick={titleClickHandler} className={styles.title}>
           Smart Home Portal
         </Navbar.Brand>
-        <Nav className={styles.navlinks}>
+        <Nav className={`${styles.navlinks} d-none d-md-flex`}>
           <Link to="/users">Registered Users</Link>
-          <Link to="/path2">Reviews</Link>
+          <Link to="/path2" >Reviews</Link>
           <Link to="/path3">Contact Us</Link>
           <Link to="/path4">Store</Link>
         </Nav>
