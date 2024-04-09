@@ -5,7 +5,6 @@ import { useFirebase } from '../../providers/FirebaseContext';
 import User from '../../models/User';
 import Home from "../../models/Home"
 import HomeTable from '../Home/HomeTable';
-import styles from "./AddUser.module.css"
 function AddUser() {
   const navigate = useNavigate();
   const firebase = useFirebase();
