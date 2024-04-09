@@ -10,30 +10,29 @@ const RoomTable = () => {
 
   const firebase = useFirebase();
 
-  const fetchRoomsWithOwners = async () => {
-    try {
-      const fetchedRooms = await firebase.getRooms();
-      const roomsWithOwnerPromises = fetchedRooms.map(async room => {
-        try {
-          const owner = await firebase.getRoomOwner(room.id);
-          return { ...room, owner: owner ? `${owner.name}` : 'Unknown' };
-        } catch (error) {
-          console.error('Failed to fetch owner for room:', room.id, error);
-          return { ...room, owner: 'Error fetching owner' };
-        }
-      });
-
-      const roomsWithOwner = await Promise.all(roomsWithOwnerPromises);
-      setRooms(roomsWithOwner);
-    } catch (error) {
-      setError('Failed to fetch rooms or owners');
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchRoomsWithOwners = async () => {
+      try {
+        const fetchedRooms = await firebase.getRooms();
+        const roomsWithOwnerPromises = fetchedRooms.map(async room => {
+          try {
+            const owner = await firebase.getRoomOwner(room.id);
+            return { ...room, owner: owner ? `${owner.name}` : 'Unknown' };
+          } catch (error) {
+            console.error('Failed to fetch owner for room:', room.id, error);
+            return { ...room, owner: 'Error fetching owner' };
+          }
+        });
+
+        const roomsWithOwner = await Promise.all(roomsWithOwnerPromises);
+        setRooms(roomsWithOwner);
+      } catch (error) {
+        setError('Failed to fetch rooms or owners');
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchRoomsWithOwners();
   }, [firebase]);
 

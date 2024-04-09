@@ -28,7 +28,7 @@ const Header = () => {
           <Link to="/rooms">Rooms</Link>
           <Link to="/home-objects">Objects</Link>
         </Nav>
-        <Button variant='dark' onClick={donotClickHandler}>DO NOT CLICK</Button>
+        <Button className='d-none d-lg-flex' variant='dark' onClick={donotClickHandler}>Modal Alert</Button>
       </Navbar>
 
       <Modal show={showModal} onHide={handleClose}>

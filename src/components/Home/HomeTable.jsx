@@ -10,30 +10,29 @@ const HomeTable = () => {
 
   const firebase = useFirebase();
 
-  const fetchHomesWithOwners = async () => {
-    try {
-      const fetchedHomes = await firebase.getHomes();
-      const homesWithOwnerPromises = fetchedHomes.map(async home => {
-        try {
-          const owner = await firebase.getHomeOwner(home.id);
-          return { ...home, owner: owner ? `${owner.name} ${owner.surname}` : 'Unknown' };
-        } catch (error) {
-          console.error('Failed to fetch owner for home:', home.id, error);
-          return { ...home, owner: 'Error fetching owner' };
-        }
-      });
-
-      const homesWithOwner = await Promise.all(homesWithOwnerPromises);
-      setHomes(homesWithOwner);
-    } catch (error) {
-      setError('Failed to fetch homes or owners');
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchHomesWithOwners = async () => {
+      try {
+        const fetchedHomes = await firebase.getHomes();
+        const homesWithOwnerPromises = fetchedHomes.map(async home => {
+          try {
+            const owner = await firebase.getHomeOwner(home.id);
+            return { ...home, owner: owner ? `${owner.name} ${owner.surname}` : 'Unknown' };
+          } catch (error) {
+            console.error('Failed to fetch owner for home:', home.id, error);
+            return { ...home, owner: 'Error fetching owner' };
+          }
+        });
+
+        const homesWithOwner = await Promise.all(homesWithOwnerPromises);
+        setHomes(homesWithOwner);
+      } catch (error) {
+        setError('Failed to fetch homes or owners');
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchHomesWithOwners();
   }, [firebase]);
 

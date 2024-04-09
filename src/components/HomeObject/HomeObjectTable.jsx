@@ -10,32 +10,31 @@ const HomeObjectTable = () => {
 
   const firebase = useFirebase();
 
-  const fetchHomeObjectsWithOwners = async () => {
-    try {
-      const fetchedHomeObjects = await firebase.getHomeObjects();
-      const homeObjectsWithOwnerPromises = fetchedHomeObjects.map(async homeObject => {
-        try {
-          const owner = await firebase.getHomeObjectOwner(homeObject.id);
-          return { ...homeObject, ownerRoomName: owner ? owner.name : 'Unknown' };
-        } catch (error) {
-          console.error('Failed to fetch owner for home object:', homeObject.id, error);
-          return { ...homeObject, ownerRoomName: 'Error fetching owner' };
-        }
-      });
-
-      const homeObjectsWithOwner = await Promise.all(homeObjectsWithOwnerPromises);
-      setHomeObjects(homeObjectsWithOwner);
-    } catch (error) {
-      setError('Failed to fetch home objects or owners');
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchHomeObjectsWithOwners = async () => {
+      try {
+        const fetchedHomeObjects = await firebase.getHomeObjects();
+        const homeObjectsWithOwnerPromises = fetchedHomeObjects.map(async homeObject => {
+          try {
+            const owner = await firebase.getHomeObjectOwner(homeObject.id);
+            return { ...homeObject, ownerRoomName: owner ? owner.name : 'Unknown' };
+          } catch (error) {
+            console.error('Failed to fetch owner for home object:', homeObject.id, error);
+            return { ...homeObject, ownerRoomName: 'Error fetching owner' };
+          }
+        });
+
+        const homeObjectsWithOwner = await Promise.all(homeObjectsWithOwnerPromises);
+        setHomeObjects(homeObjectsWithOwner);
+      } catch (error) {
+        setError('Failed to fetch home objects or owners');
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchHomeObjectsWithOwners();
-  }, []);
+  }, [firebase]);
 
   const renderStateLabel = (type, state) => {
     if (type === 'socket' || type === 'light') {
