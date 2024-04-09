@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useFirebase } from '../../providers/FirebaseContext';
 import User from '../../models/User';
 import Home from "../../models/Home"
-import HomeTable from '../Home/HomeTable';
+
 function AddUser() {
   const navigate = useNavigate();
   const firebase = useFirebase();
@@ -23,9 +23,9 @@ function AddUser() {
     const newHome = new Home(null, "house1", "monolocale", "turin", [])
     setHomes([...homes, newHome]);
   };
-  const handleRemoveHome = (homeId) => {
-    setHomes(homes.filter(home => home.id !== homeId));
-  };
+  // const handleRemoveHome = (homeId) => {
+  //   setHomes(homes.filter(home => home.id !== homeId));
+  // };
 
   const handleAddUser = async () => {
     const newUser = new User(null, name, surname, email, phoneNumber, []);
@@ -74,7 +74,6 @@ function AddUser() {
           </Form>
           <Button className='mt-2' variant='warning' onClick={handleAddHome}>Add Home</Button>
           {(showHomeFields && homes.length > 0) && <p>Home fields appear, you fill them and we see the home data here as well, on submitting the form the id for this home is added to user's homeRefs array</p>}
-          {homes.length > 0 && <HomeTable homes={homes} onRemoveHome={handleRemoveHome} />}
           &nbsp;
           {homes.length > 0 && <Button className='mt-2' variant='success'>Add Device - doesn't work now</Button>}
         </Col>

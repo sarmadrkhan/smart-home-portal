@@ -23,10 +23,10 @@ const Header = () => {
           Smart Home Portal
         </Navbar.Brand>
         <Nav className={`${styles.navlinks} d-none d-md-flex`}>
-          <Link to="/users">Registered Users</Link>
-          <Link to="/path2" >Reviews</Link>
-          <Link to="/path3">Contact Us</Link>
-          <Link to="/path4">Store</Link>
+          <Link to="/users">Users</Link>
+          <Link to="/homes" >Homes</Link>
+          <Link to="/rooms">Rooms</Link>
+          <Link to="/home-objects">Objects</Link>
         </Nav>
         <Button variant='dark' onClick={donotClickHandler}>DO NOT CLICK</Button>
       </Navbar>
@@ -35,7 +35,7 @@ const Header = () => {
         <Modal.Header closeButton>
           <Modal.Title>Alert</Modal.Title>
         </Modal.Header>
-        <Modal.Body>💲300 transferred 💸 to Sarmad Raees Khan's account. Should've followed the clear instructions. HeHeHe 😈</Modal.Body>
+        <Modal.Body>A custom alert modal with a message</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close

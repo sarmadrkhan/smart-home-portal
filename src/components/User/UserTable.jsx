@@ -1,39 +1,56 @@
 import { useEffect, useState } from 'react';
-import { useFirebase } from "../../providers/FirebaseContext"
-import { Table, Button, Alert } from 'react-bootstrap';
-import { Link } from "react-router-dom";
-import styles from "./UserTable.module.css"
+import { useFirebase } from "../../providers/FirebaseContext";
+import { Table, Button, Alert, Spinner } from 'react-bootstrap';
+import styles from "./UserTable.module.css";
+
 const UserTable = () => {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [feedback, setFeedback] = useState({ show: false, message: '' });
+
   const firebase = useFirebase();
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const fetchedUsers = await firebase.getUsers();
-      setUsers(fetchedUsers);
+      try {
+        const fetchedUsers = await firebase.getUsers();
+        setUsers(fetchedUsers);
+      } catch (err) {
+        setError('Failed to fetch users');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchUsers();
   }, [firebase]);
 
   const handleDelete = async (userId) => {
-    await firebase.deleteUser(userId);
-    setFeedback({ show: true, message: 'User successfully deleted!' });
-    setTimeout(() => setFeedback({ show: false, message: '' }), 3000);
-    const updatedUsers = users.filter(user => user.id !== userId);
-    setUsers(updatedUsers);
+    try {
+      await firebase.deleteUser(userId);
+      const updatedUsers = users.filter(user => user.id !== userId);
+      setUsers(updatedUsers);
+      setFeedback({ show: true, message: 'User successfully deleted!' });
+      setTimeout(() => setFeedback({ show: false, message: '' }), 3000);
+    } catch (err) {
+      setError('Failed to delete user');
+      console.error(err);
+    }
   };
 
   const handleEdit = (userId) => {
     console.log(`Edit user with ID: ${userId}`);
   };
 
+  if (loading) return <div className="text-center"><Spinner animation="border" /></div>;
+  if (error) return <Alert variant="danger">{error}</Alert>;
+
   return (
     <>
-
       {feedback.show && (
-        <Alert dismissible variant="success" className="animate">
+        <Alert variant="success" dismissible onClose={() => setFeedback({ show: false, message: '' })}>
           {feedback.message}
         </Alert>
       )}
@@ -66,11 +83,6 @@ const UserTable = () => {
           ))}
         </tbody>
       </Table>
-      <Link to="/add-user">
-        <Button variant="success" style={{ height: "50px", width: "50px", borderRadius: "25px", position: 'fixed', bottom: '50px', right: '50px' }}>
-          <i className="bi bi-plus-lg"></i>
-        </Button>
-      </Link>
     </>
   );
 };

@@ -21,19 +21,37 @@
 .card {
   padding: 2rem;
   background-color: #ffffff;
-  /* White background for the card */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* Card shadow for elevation */
   border-radius: 10px;
-  /* Rounded corners for the card */
   animation: flyIn 0.8s ease-out;
-  /* Animation for the card to fly in */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .title {
   margin: 0;
   color: #4e8a3c;
-  /* Darker text color for contrast */
   font-size: 2rem;
-  /* Larger font size */
+}
+
+.iconContainer {
+  position: relative;
+  display: inline-block;
+  font-size: xx-large;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.iconContainer:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.plusIcon {
+  position: absolute;
+  top: 56%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: green;
 }
