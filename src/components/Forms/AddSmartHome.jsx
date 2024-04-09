@@ -105,7 +105,6 @@ const AddSmartHome = () => {
 
     } catch (error) {
       console.error("Failed to create new entities:", error);
-      // Handle errors here, possibly setting an error state to display to the user
     }
   };
 
@@ -245,7 +244,7 @@ const AddSmartHome = () => {
               <Form.Label>State</Form.Label>
               <Form.Select
                 name="state"
-                value={homeObjectFormData.state.toString()} // Ensure the value is a string for the select element
+                value={homeObjectFormData.state.toString()}
                 onChange={handleHomeObjectDataChange}
                 required
               >
