@@ -2,6 +2,8 @@
 
 ## The portal is live at https://smart-home-portal-srk.web.app
 
+Create a `.env` file with the firebase configs, you can ask me for them 😉
+
 ## Project Structure
 
 ## `src/`
